@@ -5,12 +5,12 @@ import tempfile
 
 def main():
     mongo_log_file = str(sys.argv[1])
-    if mongo_log_file.split('.')[1] != 'log':
+    if mongo_log_file.split('.')[-1] != 'log':
         print("Invalid log file")
         return
-    tail = subprocess.Popen(["tail", "-f", './mongo.log'], stdout=subprocess.PIPE, universal_newlines=True)
+    tail = subprocess.Popen(["tail", "-f", mongo_log_file], stdout=subprocess.PIPE, universal_newlines=True)
     buffer = []
-    with open('parsed-logs-2.txt', 'w+') as f:
+    with open('parsed-logs.txt', 'w+') as f:
         while(True):
             buffer.append(tail.stdout.readline())
             if len(buffer) == 5:
